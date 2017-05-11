@@ -8,8 +8,11 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
+      <%= render 'shared/flash_messages' %>
       <%= yield %>
       <%= render 'layouts/footer' %>
+      <!--The debug output gives information about the page being rendered -->
+      <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
 </html>

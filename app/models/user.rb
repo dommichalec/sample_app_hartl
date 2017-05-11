@@ -10,4 +10,8 @@ class User < ApplicationRecord
             length: {minimum: 6}
   # use has_secure_password for hashed password and password_confirmation
   has_secure_password
+
+  def full_name
+    first_name + " " + last_name
+  end
 end
