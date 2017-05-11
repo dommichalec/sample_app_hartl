@@ -5,7 +5,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
 
   test "layout links" do
     get root_path
-    assert_template 'static_pages/home'
+    assert_template '/'
     assert_select "a[href=?]", root_path, count: 2
     assert_select "a[href=?]", help_path
     assert_select "a[href=?]", about_path
@@ -13,7 +13,7 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", signup_path, count: 2
   end
 
-  test "full title heler" do
+  test "full title helper" do
     # include ApplicationHelper for accessing full_title method
     get contact_path
     assert_select "title", full_title("Contact")
