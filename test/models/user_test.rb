@@ -9,11 +9,6 @@ class UserTest < ActiveSupport::TestCase
                       password_confirmation: "password")
   end
 
-  # sanity check
-  test "should be valid" do
-    assert @user.valid? # returns true if passes, false if fails
-  end
-
   # first_name tests
 
   # a user should always have a first_name

@@ -8,8 +8,10 @@ class UsersController < ApplicationController
 
   # POST /users/new
   def create
+    # fail
     @user = User.new(user_params)
     if @user.save
+      login(@user)
       flash[:success] = "Welcome to the site, #{@user.first_name}!"
       redirect_to user_url(@user)
     else

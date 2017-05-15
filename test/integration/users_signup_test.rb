@@ -2,6 +2,7 @@
 require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
+
   test "submitting invalid data should not create a user" do
     get signup_path
     # submitting this data should not increase the User.count by one
@@ -26,8 +27,12 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                               password:              "password",
                                               password_confirmation: "password" } }
     end
+    assert_equal true, is_logged_in?
     follow_redirect!
     assert_template 'users/show'
     assert_not flash.empty?
   end
 end
+
+# use  rails test test/integration/users_signup_test.rb to run these tests and
+# only these tests
