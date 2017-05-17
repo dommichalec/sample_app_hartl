@@ -6,7 +6,7 @@ class UserSignOutTest < ActionDispatch::IntegrationTest
     @user = users(:dom)
   end
 
-  test "sign in and sign out with valid information" do
+  test "complete sign in and sign out cycle with valid information" do
     get signin_path
     assert_template 'sessions/new'
     post signin_path, params: { session: { email: "#{@user.email}",
@@ -20,6 +20,8 @@ class UserSignOutTest < ActionDispatch::IntegrationTest
                                 assert_select "a[href=?]", user_path(@user)
     delete signout_path
     assert_redirected_to root_path
+    # Simulate a user clicking logout in a second window.
+    delete signout_path
     follow_redirect!
     assert_not is_logged_in?
     assert_template 'static_pages/home'

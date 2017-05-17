@@ -10,6 +10,8 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if authenticated_successfully(user)
       login(user)
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      remember(user)
       flash[:success] = "You've signed in successfully, #{user.first_name}!"
       redirect_to user_url(user)
     else
@@ -21,7 +23,7 @@ class SessionsController < ApplicationController
   # DELETE /signout
   def destroy
     # fail
-    logout
+    logout if logged_in?
     flash[:success] = "You've successfully logged out!"
     redirect_to root_url
   end
