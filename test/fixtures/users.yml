@@ -2,10 +2,28 @@ dom:
   first_name: Dominic
   last_name: Michalec
   email: dom@sample.com
-  password_digest: <%= User.digest('password1') %>
+  password_digest: <%= User.digest('password') %>
+  admin: true
 
 shea:
   first_name: Shea
   last_name: Scott
   email: shea@sample.com
   password_digest: <%= User.digest('password') %>
+  admin: false
+
+archer:
+  first_name: Sterling
+  last_name: Archer
+  email: duchess@example.gov
+  password_digest: <%= User.digest('password') %>
+  admin: false
+
+<% 30.times do |n| %>
+user_<%= n %>:
+  first_name:  <%= "User" %>
+  last_name: <%= "#{n}" %>
+  email: <%= "user-#{n}@example.com" %>
+  password_digest: <%= User.digest('password') %>
+  admin: false
+<% end %>

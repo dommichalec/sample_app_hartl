@@ -21,6 +21,7 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, required: true %>
 
+      <!-- @user.new.new_record? == true will issue a POST request -->
       <%= f.submit "Create my account", class: "btn btn-primary",
                                         method: :post %>
     <% end %>

@@ -11,9 +11,9 @@ class SessionsController < ApplicationController
     if authenticated_successfully(user)
       login(user)
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      remember(user)
+      # remember(user)
       flash[:success] = "You've signed in successfully, #{user.first_name}!"
-      redirect_to user_url(user)
+      redirect_back_or(user)
     else
       flash.now[:danger] = "Hmm... that doesn't seem to be the correct email and password combination."
       render 'new'

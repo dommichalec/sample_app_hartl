@@ -10,7 +10,7 @@ class UserSignOutTest < ActionDispatch::IntegrationTest
     get signin_path
     assert_template 'sessions/new'
     post signin_path, params: { session: { email: "#{@user.email}",
-                                password: "password1"}}
+                                password: "password"}}
                                 assert_redirected_to user_path @user
                                 follow_redirect!
                                 assert_equal true, is_logged_in?

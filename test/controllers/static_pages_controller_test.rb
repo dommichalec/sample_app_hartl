@@ -23,7 +23,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "About | Ruby on Rails Tutorial Sample App"
   end
 
-  # return a 200 when the contact url is received and assert title is correct 
+  # return a 200 when the contact url is received and assert title is correct
   test "should get contact" do
     get contact_url
     assert_response :success

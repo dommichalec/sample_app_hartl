@@ -2,32 +2,20 @@ class User < ApplicationRecord
   attr_accessor :remember_token
   # Callbacks
   before_save {self.email = self.email.downcase}
+  # use has_secure_password for hashed password and password_confirmation
+  has_secure_password
   # ActiveRecord validations
   validates :first_name, :last_name, presence: true, length: { in: 1..30 }
   validates :email, presence: true, length: { in: 1..255 },
             format: { with: ApplicationRecord::VALID_EMAIL_REGEX },
             uniqueness: { case_sensitive: false } # case doesn't matter here
-  validates :password, :password_confirmation, presence: true,
-            length: {minimum: 6}
-
-  # use has_secure_password for hashed password and password_confirmation
-  has_secure_password
+  validates :password, presence: true,
+            length: {minimum: 6}, allow_nil: true # allows for blank password
+            # and password_confirmation for updating users
 
   # returns a string of the user's first name and last name
   def full_name
     first_name + " " + last_name
-  end
-
-  # Returns the hash digest of the given string.
-  def User.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-                                                  BCrypt::Engine.cost
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  # returns a random string for token creation
-  def User.new_token
-    SecureRandom.urlsafe_base64
   end
 
   # Remembers a user in the database for use in persistent sessions.
