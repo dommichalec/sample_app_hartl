@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   post '/signin',    to: 'sessions#create'
   delete '/signout', to: 'sessions#destroy',     as: 'signout' #signout_path
   resources :users
+  resources :account_activations, only: [:edit]
 end

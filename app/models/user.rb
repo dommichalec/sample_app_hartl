@@ -1,7 +1,8 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
   # Callbacks
   before_save {self.email = self.email.downcase}
+  before_create :create_activation_digest
   # use has_secure_password for hashed password and password_confirmation
   has_secure_password
   # ActiveRecord validations
@@ -34,5 +35,15 @@ class User < ApplicationRecord
   # Forgets a user
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  # private methods do not expose instance methods outside of the class
+  private
+
+  # reuses the token and digest methods used for the remember token to create a
+  # new activation tocken
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
   end
 end

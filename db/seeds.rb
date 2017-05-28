@@ -6,7 +6,8 @@ User.create!(first_name:  "Dom",
              email: "dominicjjmichalec@gmail.com",
              password:              "foobar",
              password_confirmation: "foobar",
-             admin: true)
+             activated: true,
+             activated_at: Time.zone.now)
 
 199.times do |n|
   name  = Faker::Name.name
@@ -16,7 +17,9 @@ User.create!(first_name:  "Dom",
                last_name: name,
                email: email,
                password:              password,
-               password_confirmation: password)
+               password_confirmation: password,
+               activated: true,
+               activated_at: Time.zone.now)
 end
 
 # to reset the database run rails db:migrate:reset
