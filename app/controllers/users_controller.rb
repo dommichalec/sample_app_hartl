@@ -58,24 +58,16 @@ class UsersController < ApplicationController
   def show
     # fail
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   private
 
-  # it is essential that we only update attributes that are safe to edit through
-  # the web.
+  # it is essential that we only update attributes via mass assignment
+  # that are safe to edit through the web.
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password,
                                  :password_confirmation)
-  end
-
-  # Confirms a logged-in user.
-  def require_logged_in_user
-    unless logged_in?
-      store_location
-      flash[:danger] = "Please log in."
-      redirect_to signin_url
-    end
   end
 
   # Confirms a user is the current user

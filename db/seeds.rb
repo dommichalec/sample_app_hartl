@@ -22,5 +22,11 @@ User.create!(first_name:  "Dom",
                activated_at: Time.zone.now)
 end
 
+users = User.order(:created_at).take(200)
+50.times do
+  content = Faker::Lorem.sentence(5)
+  users.each { |user| user.microposts.create!(content: content) }
+end
+
 # to reset the database run rails db:migrate:reset
 # to seed the database run rails db:seed

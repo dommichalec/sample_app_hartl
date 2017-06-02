@@ -21,9 +21,9 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     get signup_path
     # submitting this data should increase the User.count by one
     assert_difference 'User.count', 1 do
-            post users_path, params: { user: { first_name:  "Connie",
-                                              last_name: "Michalec",
-                                              email: "connie@sample.com",
+            post users_path, params: { user: { first_name:  "Alan",
+                                              last_name: "Hamwi",
+                                              email: "alan@sample.com",
                                               password:              "password",
                                               password_confirmation: "password" } }
     end

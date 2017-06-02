@@ -5,6 +5,13 @@ dom:
   password_digest: <%= User.digest('password') %>
   admin: true
 
+connie:
+  first_name: Connie
+  last_name: Michalec
+  email: connie@sample.com
+  password_digest: <%= User.digest('password') %>
+  admin: true
+
 shea:
   first_name: Shea
   last_name: Scott

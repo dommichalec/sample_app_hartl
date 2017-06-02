@@ -2,6 +2,10 @@ class StaticPagesController < ApplicationController
   # return the corresponding view to 'home' action
   def home
     # fail
+    if logged_in?
+      @micropost  = current_user.microposts.build
+      @feed_items = current_user.feed.paginate(page: params[:page])
+    end
   end
 
   # return the corresponding view to 'help' action

@@ -1,12 +1,12 @@
+# to test this particular test only run rails test test/models/user_test.rb
+
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   # set up an initial valid user as an instance variable @user to
   # be used throughout the tests
   def setup
-    @user = User.new(first_name: "Dom", last_name: "Michalec",
-                      email: "dom@sample.com", password: "password",
-                      password_confirmation: "password")
+    @user = users(:connie)
   end
 
   # first_name tests
@@ -107,8 +107,17 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  # ensure user is not authenticated 
+  # ensure user is not authenticated
   test "authenticated? should return false for a user with nil digest" do
     assert_not @user.authenticated?('')
+  end
+
+  # tests the dependent: :destroy relationship between user and micropost
+  test "associated microposts should be destroyed" do
+    @user.save!
+    @micropost = @user.microposts.create(content: "Lorem ipsum")
+    assert_difference 'Micropost.count', -1 do
+      @user.destroy
+    end
   end
 end
